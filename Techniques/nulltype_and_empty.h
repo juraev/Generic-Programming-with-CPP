@@ -1,0 +1,14 @@
+//
+// Created by gitarist on 4/1/20.
+//
+
+#ifndef GENERICPROGRAMMING_SRC_TECHNIQUES_NULLTYPE_AND_EMPTY_H_
+#define GENERICPROGRAMMING_SRC_TECHNIQUES_NULLTYPE_AND_EMPTY_H_
+
+#include <iostream>
+
+class NullType{};
+
+struct EmptyType{};
+
+#endif //GENERICPROGRAMMING_SRC_TECHNIQUES_NULLTYPE_AND_EMPTY_H_
