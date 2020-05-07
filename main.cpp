@@ -1,7 +1,5 @@
 #include <iostream>
-//#include "GeneralizedFunctors/Functor.h"
-#include "GeneralizedFunctors/pointers_to_member_functions.h"
-#include "GeneralizedFunctors/binding.h"
+#include "Singletons/Singleton.h"
 using namespace std;
 
 // Ignore arguments-not of interest
@@ -9,6 +7,5 @@ using namespace std;
 
 
 int main() {
-  useBind();
   return 0;
 }

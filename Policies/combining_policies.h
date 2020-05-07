@@ -59,4 +59,5 @@ int usage() {
     return 0;
 }
 
+
 #endif //GENERICPROGRAMMING_COMBINING_POLICIES_H

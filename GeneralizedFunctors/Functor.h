@@ -7,7 +7,7 @@
 #include <memory>
 #include "../Techniques/nulltype_and_empty.h"
 #include "../Typelists/typelist.h"
-
+#include "../Techniques/type_traits.h"
 template<typename ResultType, class TList> class FunctorImpl;
 
 template<class ParentFunctor, typename Fun>
@@ -48,18 +48,21 @@ class MemFunHandler
 
   MemFunHandler* Clone() const
   { return new MemFunHandler(*this); }
+
+  typedef typename ParentFunctor::Parm1 Parm1;
+  typedef typename ParentFunctor::Parm2 Parm2;
+
   ResultType operator()()
   {
     return ((*pObj_).*pMemFn_)();
   }
 
-  ResultType operator()(typename ParentFunctor::Parm1 p1)
+  ResultType operator()(Parm1 p1)
   {
     return ((*pObj_).*pMemFn_)(p1);
   }
 
-  ResultType operator()(typename ParentFunctor::Parm1 p1,
-                        typename ParentFunctor::Parm2 p2)
+  ResultType operator()(Parm1 p1, Parm2 p2)
   {
     return ((*pObj_).*pMemFn_)(p1, p2);
   }
@@ -80,11 +83,6 @@ class Functor {
   typedef RType ResultType;
   typedef TList Arguments;
 
-  typedef typename TL::TypeAtNonStrict<TList, 0, EmptyType>::Result
-      Parm1;
-  typedef typename TL::TypeAtNonStrict<TList, 1, EmptyType>::Result
-      Parm2;
-
  public:
   Functor();
   Functor(const Functor &);
@@ -96,6 +94,8 @@ class Functor {
   template<typename PointerToObj, typename PointerToMemFun>
   Functor(const PointerToObj pObj, PointerToMemFun pMemFun);
 
+  typedef typename TypeTraits<typename TL::TypeAtNonStrict<TList, 0, EmptyType>::Result>::ParameterType Parm1;
+  typedef typename TypeTraits<typename TL::TypeAtNonStrict<TList, 1, EmptyType>::Result>::ParameterType Parm2;
  public:
   RType operator()() {
     return (*spImpl_)();
