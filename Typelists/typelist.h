@@ -22,7 +22,8 @@ namespace TL {
 #define TYPELIST_3(T1, T2, T3) Typelist<T1, TYPELIST_2(T2, T3) >
 #define TYPELIST_4(T1, T2, T3, T4) Typelist<T1, TYPELIST_3(T2, T3, T4) >
 
-template<class TList> struct Length;
+template<class TList>
+struct Length;
 
 template<>
 struct Length<NullType> {
@@ -46,7 +47,8 @@ struct TypeAt<Typelist<Head, Tail>, i> {
   typedef typename TypeAt<Tail, i - 1>::Result Result;
 };
 
-template<class TList, unsigned int index, class DefaultResult>struct TypeAtNonStrict;
+template<class TList, unsigned int index, class DefaultResult>
+struct TypeAtNonStrict;
 
 template<unsigned int index, class DefaultResult>
 struct TypeAtNonStrict<NullType, index, DefaultResult> {
@@ -188,11 +190,11 @@ struct MostDerived<NullType, T> {
 };
 
 template<class Head, class Tail, class T>
-struct MostDerived<Typelist<Head, Tail>, T>{
+struct MostDerived<Typelist<Head, Tail>, T> {
  private:
-  typedef typename MostDerived<Tail, T> :: Result Candidate;
+  typedef typename MostDerived<Tail, T>::Result Candidate;
  public:
-  typedef typename Select<SUPERSUBCLASS(Candidate, Head), Head, Candidate> :: Result Result;
+  typedef typename Select<SUPERSUBCLASS(Candidate, Head), Head, Candidate>::Result Result;
 };
 
 template<class TList>
@@ -206,10 +208,24 @@ struct DerivedToFront<NullType> {
 template<class Head, class Tail>
 struct DerivedToFront<Typelist<Head, Tail>> {
  private:
-  typedef typename MostDerived<Tail, Head> :: Result TheMostDerived;
-  typedef typename Replace<Tail, TheMostDerived, Head> :: Result L;
+  typedef typename MostDerived<Tail, Head>::Result TheMostDerived;
+  typedef typename Replace<Tail, TheMostDerived, Head>::Result L;
  public:
-  typedef typename Typelist<TheMostDerived, DerivedToFront<L>> :: Result Result;
+  typedef typename Typelist<TheMostDerived, DerivedToFront<L>>::Result Result;
+};
+
+template<class TList>
+struct Reverse;
+
+template<>
+struct Reverse<NullType> {
+  typedef NullType Result;
+};
+
+template<class Head, class Tail>
+struct Reverse<Typelist<Head, Tail> > {
+  typedef typename Append<
+      typename Reverse<Tail>::Result, Head>::Result Result;
 };
 
 }

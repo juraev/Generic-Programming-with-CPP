@@ -2,8 +2,8 @@
 // Created by gitarist on 4/6/20.
 //
 
-#ifndef GENERICPROGRAMMING_SRC_TYPELISTS_CLASS_GENERATION_WITH_TL_H_
-#define GENERICPROGRAMMING_SRC_TYPELISTS_CLASS_GENERATION_WITH_TL_H_
+#ifndef GENERICPROGRAMMING_SRC_TYPELISTS_GENSCATTERHIERARCHY_H_
+#define GENERICPROGRAMMING_SRC_TYPELISTS_GENSCATTERHIERARCHY_H_
 
 #include "typelist.h"
 #include <string>
@@ -59,14 +59,20 @@ struct Holder {
 
 struct Widget_ {};
 
+namespace Hierarchy {
 void usage_() {
   typedef GenScatterHierarchy<TYPELIST_3(int, std::string, Widget_), Holder> WidgetInfo;
 
   WidgetInfo obj;
+
+  (static_cast<Holder<std::string> &>(obj)).value_ = "Hello ";
+  (static_cast<Holder<int> &>(obj)).value_ = 10;
+
   std::string name = (static_cast<Holder<std::string> &>(obj)).value_;
   int age = (static_cast<Holder<int> &>(obj)).value_;
 
   std::cout << name << " " << age << std::endl;
 }
+};
 
-#endif //GENERICPROGRAMMING_SRC_TYPELISTS_CLASS_GENERATION_WITH_TL_H_
+#endif //GENERICPROGRAMMING_SRC_TYPELISTS_GENSCATTERHIERARCHY_H_

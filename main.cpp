@@ -1,11 +1,10 @@
 #include <iostream>
-#include "Singletons/Singleton.h"
+//#include "Singletons/Singleton.h"
+#include "AbstractFactory/AbstractFactory.h"
 using namespace std;
 
-// Ignore arguments-not of interest
-// in this example
-
-
-int main() {
-  return 0;
+int main()
+{
+    usage_abstract_fac();
+    return 0;
 }

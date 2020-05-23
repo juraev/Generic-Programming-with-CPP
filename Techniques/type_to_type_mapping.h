@@ -29,7 +29,7 @@ Widget* create(const U& arg, Type2Type<Widget>)
   return new Widget(arg, -1);
 }
 
-void usage(){
+void usage__(){
   std::string* pStr = create("Hello", Type2Type<std::string>());
   Widget* pW = create(100, Type2Type<Widget>());
 }

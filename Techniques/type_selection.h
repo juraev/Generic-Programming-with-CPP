@@ -17,9 +17,10 @@ struct Select<false, T, U> {
   typedef U Result;
 };
 
-template <typename T, bool isPolymorphic>
-class NiftyContainer{
-  typedef typename Select<isPolymorphic, T*, T> ::Result ValueType;
+namespace {
+template<typename T, bool isPolymorphic>
+class NiftyContainer {
+  typedef typename Select<isPolymorphic, T *, T>::Result ValueType;
 };
-
+}
 #endif //GENERICPROGRAMMING_SRC_TECHNIQUES_TYPE_SELECTION_H_
